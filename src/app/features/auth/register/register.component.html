@@ -1,0 +1,32 @@
+<div class="container-fluid p-0 register-page">
+    <p-blockUI [blocked]="blockedUi">
+        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+      </p-blockUI>
+    <div class="row-1-register row h-100 justify-content-center align-items-center">
+        <div class="col-lg-6 col-sm-6 offset-lg-2">
+            <div class="register-box">
+                <h1 class="register-box-header">REGISTER</h1>
+                <p class="register-box-description">Please enter your infomation to create account!</p>
+
+                <div class="register-form-container">
+                    <form (keydown.enter)="formGroupSubmitSubject.next()" class="form-group" [formGroup]="registerForm">
+                        <input class="email__input" pInputText required placeholder="Email" formControlName="email">
+                        <input class="first-name__input" pInputText required placeholder="First Name" formControlName="firstName" />
+                        <input class="last-name__input" pInputText required placeholder="LastName" formControlName="lastName" />
+
+                        <p-password class="password__input" placeholder="Password" formControlName="password" [toggleMask]="true" ></p-password>
+                        <p-password class="confirm-password__input" placeholder="Confirm Password" formControlName="confirmPassword" [toggleMask]="true" ></p-password>
+                    </form>
+
+                    <p-toast></p-toast>
+                    <p-button (click)="formGroupSubmitSubject.next()" class="button-register" label="CONFIRM" type="submit"></p-button>
+
+                    <div class="forward-sign-up-container">
+                        <p class="no-account-ques">Have account? </p>
+                        <a class="forward-link" href="">Sign in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container-fluid p-0 login-page">
+    <div class="row-1-login row h-100 justify-content-center align-items-center">
+        <div class="col-lg-6 col-sm-6 offset-lg-2">
+            <div class="login-box">
+                <h1 class="login-box-header">LOGIN</h1>
+                <p class="login-box-description">Please enter your email and password!</p>
+
+                <div class="login-form-container">
+                    <form (keydown.enter)="formSubmitSubject.next()" [formGroup]="loginForm" class="form-group">
+                        <input class="email-input" pInputText required placeholder="Email" formControlName="email" />
+                        <p-password class="password-input" placeholder="Password" formControlName="password" [toggleMask]="true" [feedback]="false"></p-password>
+                    </form>
+
+                    <a class="forget-password-link" href="">Forgot password?</a>
+                    <p-toast></p-toast>
+                    <p-button (click)="formSubmitSubject.next()" class="button-login" label="Login"></p-button>
+
+                    <div class="forward-sign-up-container">
+                        <p class="no-account-ques">Don't have account yet?</p>
+                        <a class="forward-link" href="">Sign up</a>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
