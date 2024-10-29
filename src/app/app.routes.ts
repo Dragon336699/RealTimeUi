@@ -3,6 +3,8 @@ import { AppLayoutComponent } from './core/components/app-layout/app-layout.comp
 import { HomeComponent } from './features/components/home/home.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
+import { DefaultComponent } from './features/components/default/default.component';
+import { ConversationComponent } from './features/components/conversation/conversation.component';
 
 export const routes: Routes = [
     {
@@ -20,11 +22,21 @@ export const routes: Routes = [
             {
                 path: '',
                 pathMatch: 'full',
-                redirectTo: '/Home'
+                redirectTo: '/Home/Default'
             },
             {
                 path: 'Home',
-                component: HomeComponent
+                component: HomeComponent,
+                children: [
+                    {
+                        path: 'Default',
+                        component: DefaultComponent
+                    },
+                    {
+                        path: 'Conversation',
+                        component: ConversationComponent
+                    }
+                ]
             }
         ]
     }

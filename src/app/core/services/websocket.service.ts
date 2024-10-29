@@ -1,49 +1,51 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { Subject } from 'rxjs';
-import { messageReq } from '../requestTypes/messageReq';
+import * as signalR from "@microsoft/signalr";
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
   private readonly webSockeUrl = environment.webSocketUrl;
-  private socket$!: WebSocket;
-  private messageSubject: Subject<messageReq> = new Subject<messageReq>();
-  public message$ = this.messageSubject.asObservable();
+  private hubConnection!: signalR.HubConnection;
+  private token: string | null = null;
+  private userId: string | null = null;
 
-  constructor() { }
-
-  connect(){
-    if (!this.socket$ || this.socket$.readyState === WebSocket.CLOSED){
-      this.socket$ = new WebSocket(this.webSockeUrl);
-
-      this.socket$.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        this.messageSubject.next(data);
-      }
-
-      this.socket$.onclose = () => {
-
-      }
-
-      this.socket$.onerror = (error) => {
-        
-      };
-    }
-
-    return this.message$;
-  }
-
-  public sendMessage(message: string): void{
-    if (this.socket$ && this.socket$.readyState === WebSocket.OPEN){
-      this.socket$.send(JSON.stringify(message));
+  constructor() {
+    if (typeof localStorage !== 'undefined'){
+      this.token = localStorage.getItem("token");
     }
   }
 
-  public close(): void {
-    if (this.socket$) {
-      this.socket$.close();
+  public connect(): void {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+      .withUrl(this.webSockeUrl, {
+        transport: signalR.HttpTransportType.WebSockets,
+        skipNegotiation:true,
+        accessTokenFactory: () => { return this.token!},
+      })
+      .withAutomaticReconnect()
+      .build();
+
+    this.hubConnection
+      .start()
+      .then(() => console.log("Connection started"))
+      .catch(err => console.error("Error establishing connection: ", err));
+  }
+
+  public addReceiveMessageListener(): void {
+    this.hubConnection.on("ReceiveMessage", (message: string) => {
+      console.log("Receive Message from server:", message);
+    });
+
+    this.hubConnection.on("ReceivePrivateMessage", (message: string) => {
+      console.log("Receive Message from another client:", message);
+    });
+  }
+
+  public sendMessage (userId: string, message: string) : void {
+    if (this.hubConnection) {
+      this.hubConnection.invoke("SendMessage", userId, message);
     }
   }
 }

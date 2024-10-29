@@ -1,0 +1,17 @@
+    <div class="chat-header">
+        <h2 class="chat-title">Design chat</h2>
+        <p class="chat-status">23 members, 10 online</p>
+        <div class="chat-icons">
+          <i class="pi pi-search"></i>
+          <i class="pi pi-phone"></i>
+          <i class="pi pi-ellipsis-h"></i>
+        </div>
+      </div>
+    
+      <div class="message__input-wrapper">
+        <input class="message__input" pInputText placeholder="Your message" [(ngModel)]="messageValue"/>
+        <div class="input-icons">
+          <i class="pi pi-microphone"></i>
+          <i (click)="sendMessage()" class="pi pi-send"></i>
+        </div>
+      </div>

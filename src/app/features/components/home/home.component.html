@@ -1,1 +1,47 @@
-<p>home works!</p>
+<div class="container-fluid p-0 home-page">
+    <div class="row home-page-row-1">
+      <div class="col-lg3 col-md-3 chat-sidebar">
+        <!-- Search box -->
+        <div class="search-wrapper">
+          <i class="pi pi-search"></i>
+          <p-autoComplete class="chat-search" [suggestions]="suggestions" />
+          <!-- <input class="chat-search" pInputText placeholder="Search" /> -->
+        </div>
+  
+        <!-- Chat List -->
+        <div class="chat-list">
+          <!-- Chat Item 1 -->
+          <div class="chat-item">
+            <!-- <p-avatar label="DC" shape="circle" size="large" class="mr-2"></p-avatar> -->
+            <div class="chat-info">
+              <div class="chat-title">Design chat</div>
+              <div class="last-message">
+                <span class="sender">Jessie Rollins</span> sent a file
+              </div>
+            </div>
+            <div class="chat-time">4m</div>
+            <p-badge class="badge" [value]="2" severity="warning"/>
+          </div>
+  
+          <!-- Chat Item 2 -->
+          <div class="chat-item">
+            <!-- <p-avatar image="path/to/avatar.jpg" shape="circle" size="large" class="mr-2"></p-avatar> -->
+            <div class="chat-info">
+              <div class="chat-title">Osman Campos</div>
+              <div class="last-message">
+                <span class="sender">You:</span> Hey! We are ready...
+              </div>
+            </div>
+            <div class="chat-time">20m</div>
+            <i class="pi pi-star chat-icon"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 col-md-9 chat-container">
+        <router-outlet></router-outlet>
+      </div>
+      
+    </div>
+  </div>
+  

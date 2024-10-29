@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { MenuModule } from 'primeng/menu';
 
 @Component({
   selector: 'app-app-navbar',
   standalone: true,
-  imports: [],
+  imports: [
+    MenuModule
+  ],
   templateUrl: './app-navbar.component.html',
   styleUrl: './app-navbar.component.scss'
 })
